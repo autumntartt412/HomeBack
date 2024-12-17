@@ -15,7 +15,7 @@ router.route("/")
       res.status(200).send(result);
     } catch (error) {
       console.error("Error retrieving homes:", error);
-      res.status(500).send("Error retrieving homes");
+      res.status(500).send("Error retrieving homes.");
     }
   })
 
@@ -27,7 +27,7 @@ router.route("/")
     try {
       // Validate required fields
       if (!req.body.title || !req.body.price || !req.body.location) {
-        return res.status(400).send("Missing required fields");
+        return res.status(400).send("Missing required fields.");
       }
 
       const collection = await db.collection("homes");
@@ -43,7 +43,7 @@ router.route("/")
       res.status(201).json(result);
     } catch (error) {
       console.error("Error inserting home:", error);
-      res.status(500).send("Error inserting home");
+      res.status(500).send("Error inserting home.");
     }
   });
 
@@ -60,7 +60,7 @@ router
     let result = await collection.findOne(query)
 
     console.log(result);
-    if (!result) res.send("Home not found").status(404);
+    if (!result) res.send("Home not found.").status(404);
     else res.send(result).status(200);
   })
 
@@ -70,7 +70,7 @@ router
   try {
     const collection = await db.collection('homes');
   let filter = { _id: new ObjectId(req.params.id) }
-  let updatedHouse = { 
+  let updatedHome = { 
     $set: {
           name: req.body.name,
           breed: req.body.breed,
@@ -80,16 +80,16 @@ router
           isAvailable: req.body.available,
     },
 };
-let result = await collection.updateOne(filter, updatedHouse);
+let result = await collection.updateOne(filter, updatedHome);
 console.log(result);
 
 if (!result.modifiedCount) {
-  return res.status(404).send("House not found");
+  return res.status(404).send("Home not found");
 }
 return res.status(200).send(result);
 } catch (error) {
 console.error("Error updating Home:", error);
-return res.status(500).send("An error occurred while updating the Home");
+return res.status(500).send("An error occurred while updating the Home.");
 }
 })
 
@@ -102,12 +102,12 @@ return res.status(500).send("An error occurred while updating the Home");
       let result = await collection.deleteOne(query);
     
       if (!result.deletedCount) {
-        return res.status(404).send("Home not found");
+        return res.status(404).send("Home not found.");
       }
       return res.status(200).send(result);
     } catch (error) {
       console.error("Error deleting Home:", error);
-      return res.status(500).send("An error occurred while deleting the Home");
+      return res.status(500).send("An error occurred while deleting the Home.");
     }
   })
 

@@ -42,7 +42,7 @@ router.route("/")
   });
 
 
-// http://localhost:5000/comment/
+// http://localhost:5000/comment/6761d3b6befb0ac47f2f529d
 
 // GET a comment by its ID.
 router

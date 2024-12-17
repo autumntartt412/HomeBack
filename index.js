@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 //import routes
  import routerHome from './routes/homeRoutes.js';
  import routerComment from './routes/commentRoutes.js';
-//  import routerUser from './routes/userRoutes.js';
+ import routerUser from './routes/userRoutes.js';
 
 
 
@@ -25,7 +25,7 @@ app.use(express.json());
 
  app.use('/home', routerHome);
  app.use('/comment', routerComment);
-//  app.use('/user', routerHome);
+ app.use('/user', routerUser);
 
 app.get("/", (req, res) => {
     res.send("Welcome to the Homes API.");
