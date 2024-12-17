@@ -3,17 +3,18 @@ import { MongoClient } from 'mongodb';
 
 
 const connectionString = process.env.ATLAS_URI || "";
+console.log(connectionString)
 
 const client = new MongoClient(connectionString);
-
-let conn;   
+  
 try {
-  conn = await client.connect();
+
+  await client.connect();
+  console.log("connected to mongoDB");
 } catch (e) {
   console.error(e);
 }
 // we are now connected to the cluster on MongoDb 
+const db = client.db("Home");
 
-let db = conn.db("Adopt"); //choosing Adopt as the database 
-
-export default  db;
+export {db};
