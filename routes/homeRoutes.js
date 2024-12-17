@@ -3,6 +3,7 @@ import { db } from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 const router = express.Router();
 
+http://localhost:5000/home
 
 // GET a home
 router.route("/")
@@ -64,7 +65,7 @@ router
   })
 
 
- // UPDATE a house by its ID
+ // UPDATE a Home by its ID
  .put(async (req, res) => {
   try {
     const collection = await db.collection('homes');
@@ -87,8 +88,8 @@ if (!result.modifiedCount) {
 }
 return res.status(200).send(result);
 } catch (error) {
-console.error("Error updating house:", error);
-return res.status(500).send("An error occurred while updating the house");
+console.error("Error updating Home:", error);
+return res.status(500).send("An error occurred while updating the Home");
 }
 })
 
@@ -105,8 +106,8 @@ return res.status(500).send("An error occurred while updating the house");
       }
       return res.status(200).send(result);
     } catch (error) {
-      console.error("Error deleting house:", error);
-      return res.status(500).send("An error occurred while deleting the home");
+      console.error("Error deleting Home:", error);
+      return res.status(500).send("An error occurred while deleting the Home");
     }
   })
 

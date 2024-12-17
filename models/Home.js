@@ -1,13 +1,6 @@
 const mongoose = require('mongoose');
 import Home from ".models/Home";
 
-// {
-    // title: "Mountainview Retreat",
-    // price: "$2,50,000",
-    // location: "California",
-    // image: home2,
-    // isAvailable: true,
-//   },
 
 
 // const homeSchema = new mongoose.Schema ({
