@@ -3,7 +3,6 @@ import { db } from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 const router = express.Router();
 
-
 http://localhost:5000/comment
 
 // GET a comment
@@ -26,10 +25,15 @@ router.route("/")
     try {
       const collection = await db.collection("comments");
       const newComment = {
-        comment: req.body.comment,  
+        name: req.body.name,
+        title: req.body.title,
+        email: req.body.email,
+        contact: req.body.contact,
+        rating: req.body.rating,
+        image: req.body.image,
+        text: req.body.text
       };
   
-   
       const result = await collection.insertOne(newComment);
   
   
@@ -42,7 +46,7 @@ router.route("/")
   });
 
 
-// http://localhost:5000/comment/6761d3b6befb0ac47f2f529d
+// http://localhost:5000/comment/676309663ea0523722337970
 
 // GET a comment by its ID.
 router
@@ -65,8 +69,15 @@ router
     const collection = await db.collection('comments');
   let filter = { _id: new ObjectId(req.params.id) }
   let updatedComment = { 
-    $set: {
-        comment: { type: String }
+    $set: { 
+        name: req.body.name,
+        title: req.body.title,
+        email: req.body.email,
+        contact: req.body.contact,
+        rating: req.body.rating,
+        image: req.body.image,
+        text: req.body.text
+
     },
 };
 let result = await collection.updateOne(filter, updatedComment);
@@ -83,6 +94,7 @@ return res.status(500).send("An error occurred while updating the comment.");
 })
 
   // DELETE a comment by its ID
+
   .delete(async (req, res) => {
     try {
       let collection = await db.collection("comments");

@@ -1,12 +1,14 @@
 import express from 'express';
 import { db } from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
+
 const router = express.Router();
 
 http://localhost:5000/home
 
 // GET a home
-router.route("/")
+router
+.route("/")
   .get(async (req, res, next) => {
     try {
       const collection = await db.collection("homes");
@@ -72,12 +74,11 @@ router
   let filter = { _id: new ObjectId(req.params.id) }
   let updatedHome = { 
     $set: {
-          name: req.body.name,
-          breed: req.body.breed,
-          color: req.body.color,
-          gender: req.body.gender,
-          age: req.body.age,
-          isAvailable: req.body.available,
+      title: req.body.title,
+      price: req.body.price,
+      location: req.body.location,
+      image: req.body.image,
+      isAvailable: req.body.available,
     },
 };
 let result = await collection.updateOne(filter, updatedHome);
