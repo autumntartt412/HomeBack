@@ -35,7 +35,7 @@ router
         email,
         contact,
         rating,
-        image,  // Store the file path or URL in the image field
+        image,  
         text,
       });
   
