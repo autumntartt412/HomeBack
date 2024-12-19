@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 import Comment from "./models/Comment"; 
 
-
 const commentSchema = new mongoose.Schema({
     name: { type: String, required: true },
     title: { type: String, required: false },
-    email: { type: Sring, required: false },
-    contact: {type: number, required: false },
+    email: { type: String, required: false },
+    contact: {type: Number, required: false },
     rating: { type: Number, required: false },
     image: { type: String, required: false },
     text: { type: String, required: true },

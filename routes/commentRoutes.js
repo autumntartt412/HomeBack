@@ -20,8 +20,9 @@ router.route("/")
   })
 
   // POST a comment
-  .post(async (req, res) => {
-
+  .post('/saveComment', async (req, res) => {
+    const {name, title, email, contact, rating, text } = req.body;
+    console.log(name);
     try {
       const collection = await db.collection("comments");
       const newComment = {
