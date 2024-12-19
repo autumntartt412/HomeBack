@@ -3,10 +3,12 @@ import { db } from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 const router = express.Router();
 
+
 http://localhost:5000/comment
 
 // GET a comment
-router.route("/")
+router
+.route("/")
   .get(async (req, res, next) => {
     try {
       const collection = await db.collection("comments");
@@ -20,31 +22,52 @@ router.route("/")
   })
 
   // POST a comment
-  .post('/saveComment', async (req, res) => {
-    const {name, title, email, contact, rating, text } = req.body;
-    console.log(name);
+  router
+  .route('/saveComment')
+  .post(async (req, res) => {
     try {
-      const collection = await db.collection("comments");
-      const newComment = {
-        name: req.body.name,
-        title: req.body.title,
-        email: req.body.email,
-        contact: req.body.contact,
-        rating: req.body.rating,
-        image: req.body.image,
-        text: req.body.text
-      };
+      const { name, title, email, contact, rating, text } = req.body;
+      const image = req.file ? req.file.path : null;  // Store file path in the image field
   
-      const result = await collection.insertOne(newComment);
+      const newComment = new Comment({
+        name,
+        title,
+        email,
+        contact,
+        rating,
+        image,  // Store the file path or URL in the image field
+        text,
+      });
   
-  
-      res.status(201).json(result);
+      await newComment.save();
+      res.status(201).json(newComment);  // Respond with the saved comment
     } catch (error) {
-
-      console.error("Error inserting comment:", error);
-      res.status(500).send("Error inserting comment.");
+      console.error('Error saving comment:', error);
+      res.status(500).send('Error saving comment.');
     }
   });
+
+
+  // .post(async (req, res) => {
+  //   try {
+  //     const collection = await db.collection("comments");
+  //     const newComment = {
+  //       name: req.body.name,
+  //       title: req.body.title,
+  //       email: req.body.email,
+  //       contact: req.body.contact,
+  //       rating: req.body.rating,
+  //       image: req.body.image,
+  //       text: req.body.text
+  //     };
+  //     const result = await collection.insertOne(newComment);
+  //     res.status(201).json(result);
+  //   } catch (error) {
+  //     console.error("Error inserting comment:", error);
+  //     res.status(500).send("Error inserting comment.");
+  //   }
+  // });
+
 
 
 // http://localhost:5000/comment/676309663ea0523722337970
@@ -76,7 +99,7 @@ router
         email: req.body.email,
         contact: req.body.contact,
         rating: req.body.rating,
-        image: req.body.image,
+         image: req.body.image,
         text: req.body.text
 
     },
@@ -95,7 +118,6 @@ return res.status(500).send("An error occurred while updating the comment.");
 })
 
   // DELETE a comment by its ID
-
   .delete(async (req, res) => {
     try {
       let collection = await db.collection("comments");
